@@ -1,17 +1,42 @@
 function hasTargetSum(array, target) {
-  // Write your algorithm here
+  const seenNumbers = new Set(); // initialize an empty Set
+  for (const number of array) {
+    const complement = target - number;
+
+    // .has returns true if the Set includes the complement
+    if (seenNumbers.has(complement)) return true;
+
+    // .add adds the number to the Set
+    seenNumbers.add(number);
+  }
+  return false;
 }
 
 /* 
   Write the Big O time complexity of your function here
+
+  O(n)
 */
 
 /* 
   Add your pseudocode here
+  *******************************************
+ create an object to keep track of all the numbers we've seen
+iterate over the array of numbers
+  for the current number, identify a complementary number that adds to our target
+  (for example: if our number is 2, and the target is 5, the complementary number is 3)
+  check if any of the keys in our object is the complement to the current number
+    if so, return true
+  save the current number as the key on our object so we can check it later against other numbers
+if we reach the end of the array, return false
 */
 
 /*
   Add written explanation of your solution here
+  Initialize an empty Set.
+  Start a for loop that goes through the array subtracting the numbers from the target.
+  Place a condition that if the complement is found, the code should return true,
+  false if otherwise.
 */
 
 // You can run `node index.js` to view these console logs
@@ -29,6 +54,12 @@ if (require.main === module) {
 
   console.log("Expecting: false");
   console.log("=>", hasTargetSum([1, 2, 5], 4));
+
+  console.log("");
+
+  console.log("Expecting: false");
+  console.log("=>", hasTargetSum([1, 4, 17, 32, 12], 100));
+
 }
 
 module.exports = hasTargetSum;
